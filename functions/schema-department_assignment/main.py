@@ -43,26 +43,16 @@ def task(request):
     md.sql(f"CREATE SCHEMA IF NOT EXISTS {db_schema};") 
 
     ##################################################### create the core tables in stage
-
-    # Requests Table
-    raw_tbl_name = f"{db_schema}.requests"
+    # department_assignment
+    raw_tbl_name = f"{db_schema}.department_assignment"
     raw_tbl_sql = f"""
     CREATE TABLE IF NOT EXISTS {raw_tbl_name} (
-        _id INT 
-        ,case_enquiry_id VARCHAR
-        ,case_title VARCHAR
-        ,subject VARCHAR
-        ,reason VARCHAR
-        ,type VARCHAR
-        ,queue VARCHAR
-        ,source VARCHAR
-        ,submitted_photo VARCHAR
-        ,closed_photo VARCHAR
-        ,PRIMARY KEY (case_enquiry_id)
+        case_enquiry_id VARCHAR
+        ,department VARCHAR
+        ,PRIMARY KEY (case_enquiry_id, department)
     );
     """
     print(f"{raw_tbl_sql}")
     md.sql(raw_tbl_sql)
 
-    
     return {}, 200

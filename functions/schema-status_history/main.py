@@ -44,25 +44,20 @@ def task(request):
 
     ##################################################### create the core tables in stage
 
-    # Requests Table
-    raw_tbl_name = f"{db_schema}.requests"
+    # status_history
+    raw_tbl_name = f"{db_schema}.status_history"
     raw_tbl_sql = f"""
     CREATE TABLE IF NOT EXISTS {raw_tbl_name} (
-        _id INT 
-        ,case_enquiry_id VARCHAR
-        ,case_title VARCHAR
-        ,subject VARCHAR
-        ,reason VARCHAR
-        ,type VARCHAR
-        ,queue VARCHAR
-        ,source VARCHAR
-        ,submitted_photo VARCHAR
-        ,closed_photo VARCHAR
-        ,PRIMARY KEY (case_enquiry_id)
+        case_enquiry_id VARCHAR
+        ,open_dt TIMESTAMP
+        ,sla_target_dt TIMESTAMP
+        ,closed_dt TIMESTAMP
+        ,case_status VARCHAR
+        ,closure_reason VARCHAR
+        ,PRIMARY KEY (case_enquiry_id, open_dt)
     );
     """
     print(f"{raw_tbl_sql}")
     md.sql(raw_tbl_sql)
 
-    
     return {}, 200
