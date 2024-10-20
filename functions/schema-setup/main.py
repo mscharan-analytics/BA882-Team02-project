@@ -8,7 +8,7 @@ secret_id = 'project_key'   #<---------- this is the name of the secret you crea
 version_id = 'latest'
 
 # db setup
-db = 'city_services'
+db = 'city_services_boston'
 schema = "stage"
 db_schema = f"{db}.{schema}"
 
@@ -48,7 +48,7 @@ def task(request):
     raw_tbl_name = f"{db_schema}.requests"
     raw_tbl_sql = f"""
     CREATE TABLE IF NOT EXISTS {raw_tbl_name} (
-        _id INT
+        _id INT 
         ,case_enquiry_id VARCHAR
         ,case_title VARCHAR
         ,subject VARCHAR
@@ -123,30 +123,6 @@ def task(request):
         case_enquiry_id VARCHAR
         ,on_time BOOLEAN
         ,PRIMARY KEY (case_enquiry_id)
-    );
-    """
-    print(f"{raw_tbl_sql}")
-    md.sql(raw_tbl_sql)
-
-    # feedback
-    raw_tbl_name = f"{db_schema}.feedback"
-    raw_tbl_sql = f"""
-    CREATE TABLE IF NOT EXISTS {raw_tbl_name} (
-        case_enquiry_id VARCHAR
-        ,feedback_date TIMESTAMP
-        ,PRIMARY KEY (case_enquiry_id, feedback_date)
-    );
-    """
-    print(f"{raw_tbl_sql}")
-    md.sql(raw_tbl_sql)
-
-    # escalation
-    raw_tbl_name = f"{db_schema}.escalation"
-    raw_tbl_sql = f"""
-    CREATE TABLE IF NOT EXISTS {raw_tbl_name} (
-        escalation_id VARCHAR PRIMARY KEY
-        ,case_enquiry_id VARCHAR
-        ,escalation_date TIMESTAMP
     );
     """
     print(f"{raw_tbl_sql}")
