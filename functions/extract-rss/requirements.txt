@@ -1,0 +1,6 @@
+functions-framework==3.*
+google-cloud-secret-manager==2.*
+google-cloud-storage==2.*
+requests==2.*
+duckdb==0.8.*
+feedparser
