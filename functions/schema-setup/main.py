@@ -64,5 +64,69 @@ def task(request):
     print(f"{raw_tbl_sql}")
     md.sql(raw_tbl_sql)
 
+    # locations
+    raw_tbl_name = f"{db_schema}.locations"
+    raw_tbl_sql = f"""
+    CREATE TABLE IF NOT EXISTS {raw_tbl_name} (
+        location VARCHAR
+        ,fire_district VARCHAR
+        ,pwd_district VARCHAR
+        ,city_council_district VARCHAR
+        ,police_district VARCHAR
+        ,neighborhood VARCHAR
+        ,neighborhood_services_district VARCHAR
+        ,ward VARCHAR
+        ,precinct VARCHAR
+        ,location_street_name VARCHAR
+        ,location_zipcode VARCHAR
+        ,latitude FLOAT
+        ,longitude FLOAT
+        ,geom_4326 GEOMETRY
+        ,PRIMARY KEY (location)
+    );
+    """
+    print(f"{raw_tbl_sql}")
+    md.sql(raw_tbl_sql)
+
+    # department_assignment
+    raw_tbl_name = f"{db_schema}.department_assignment"
+    raw_tbl_sql = f"""
+    CREATE TABLE IF NOT EXISTS {raw_tbl_name} (
+        case_enquiry_id VARCHAR
+        ,department VARCHAR
+        ,PRIMARY KEY (case_enquiry_id, department)
+    );
+    """
+    print(f"{raw_tbl_sql}")
+    md.sql(raw_tbl_sql)
+
+    # status_history
+    raw_tbl_name = f"{db_schema}.status_history"
+    raw_tbl_sql = f"""
+    CREATE TABLE IF NOT EXISTS {raw_tbl_name} (
+        case_enquiry_id VARCHAR
+        ,open_dt TIMESTAMP
+        ,sla_target_dt TIMESTAMP
+        ,closed_dt TIMESTAMP
+        ,case_status VARCHAR
+        ,closure_reason VARCHAR
+        ,PRIMARY KEY (case_enquiry_id, open_dt)
+    );
+    """
+    print(f"{raw_tbl_sql}")
+    md.sql(raw_tbl_sql)
+
+        # response_time
+    raw_tbl_name = f"{db_schema}.response_time"
+    raw_tbl_sql = f"""
+    CREATE TABLE IF NOT EXISTS {raw_tbl_name} (
+        case_enquiry_id VARCHAR
+        ,on_time BOOLEAN
+        ,PRIMARY KEY (case_enquiry_id)
+    );
+    """
+    print(f"{raw_tbl_sql}")
+    md.sql(raw_tbl_sql)
+
     
     return {}, 200
